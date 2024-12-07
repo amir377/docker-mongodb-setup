@@ -1,0 +1,21 @@
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: ${CONTAINER_NAME}
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - "${ALLOW_HOST}:${MONGODB_PORT}:27017"
+    networks:
+      - ${NETWORK_NAME}
+
+volumes:
+  mongodb_data:
+    driver: local
+
+networks:
+  ${NETWORK_NAME}:
+    external: true
